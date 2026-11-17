@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-14",
+  "target": "DSH 0.2.1-rc.5 / Windows",
+  "unitTests": {
+    "passed": 24,
+    "failed": 0
+  },
+  "nativeAgent": {
+    "toolSchemas": 32,
+    "executedTool": "side_chat_context",
+    "toolIsError": false,
+    "turnEnd": "completed",
+    "historicalParentResume": true,
+    "inheritedModel": true
+  },
+  "ui": {
+    "visibleGuide": true,
+    "nativeComposer": true,
+    "quoteDraftOnly": true,
+    "collapsePreserves": true,
+    "reloadPreserves": true,
+    "screenshot": "preview.jpg"
+  },
+  "normalExit": {
+    "before": 2,
+    "after": 0,
+    "stderrBytes": 0
+  },
+  "crashRecovery": {
+    "logsAfterForceStop": 1,
+    "logsAfterRestartRecovery": 0,
+    "parentLogPreserved": true
+  },
+  "installer": {
+    "isolatedInstall": true,
+    "rollbackByteIdentical": true
+  },
+  "limitations": [
+    "Future DSH versions not installed or tested",
+    "Attachments and approval controls present; full attachment upload and approval workflows not exercised",
+    "Test model deterministic and local; no remote model calls"
+  ]
+}

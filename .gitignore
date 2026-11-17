@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tgz
+*.log
+.env
+.env.*
+!.env.example
+.npmrc
+*.pem
+*.key
+本机安装记录.md
+__pycache__/

@@ -1,0 +1,30 @@
+name: Prepare draft release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Match tag to package version
+        run: node -e 'const p=require("./package.json"); if(process.env.GITHUB_REF_NAME!=="v"+p.version) throw Error("Tag must equal v"+p.version)'
+      - name: Set real repository metadata
+        run: node scripts/configure-repository.mjs "$GITHUB_REPOSITORY"
+      - run: npm run check
+      - run: git diff --exit-code -- lib/client.js
+      - run: npm run release:pack
+      - name: Generate discover index pinned to this commit
+        run: node scripts/create-index.mjs "$GITHUB_REPOSITORY" "$GITHUB_SHA" dist/index.json
+      - name: Prepare draft for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.tgz dist/*-github-source.zip dist/SHA256SUMS.txt dist/index.json --verify-tag --draft --title "$GITHUB_REF_NAME" --generate-notes
