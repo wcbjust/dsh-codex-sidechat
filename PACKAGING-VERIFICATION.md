@@ -19,3 +19,11 @@
 以上是本地运行的检查。GitHub Actions 的跨平台矩阵、远程 GitHub 安装、npm 发布及公共市场收录尚未运行；生成发布工作流不代表已经公开发布。插件页界面运行证据见 VERIFICATION.md 的既有原生实测记录，本次安装通路通过宿主 CLI 验证。
 
 宿主未来版本仍需烟测；本次未修改侧聊运行代码。
+
+## 2026-11-17 构建一致性修复
+
+首次 GitHub CI 的 Ubuntu / Node 22 作业中，npm run check 已通过，但 lib/client.js 的预构建一致性检查失败。原因是 CSS 源码在 Windows 上的 CRLF 经 JSON.stringify 转成了字面量转义字符，使 Linux 的 LF 构建产物不同。
+
+build.mjs 现统一规范四个源文件的换行符后再拼接与序列化，并重新生成 lib/client.js。新增测试使用真实源码分别生成 CRLF 和 LF 两套文件，执行构建并逐字节比较输出。
+
+本地检查结果：28 项通过，0 失败。修复后的 GitHub 四项平台/Node 矩阵仍需推送后验收；此记录不表示远程检查已通过。

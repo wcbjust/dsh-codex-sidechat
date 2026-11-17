@@ -8,3 +8,5 @@
 - 标准 npm 安装包、离线安装脚本、GitHub CI / Release 与专用发现索引生成。
 
 已知范围和限制见 VERIFICATION.md。
+
+- 2026-11-17：规范构建输入换行符，修复 Windows 与 Linux 预构建产物不一致；增加真实源码跨换行符一致性测试。
